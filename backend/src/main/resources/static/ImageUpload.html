@@ -1,0 +1,199 @@
+<html ng-app="iflaunt">
+<head>
+<title>i Flaunt</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet"
+	href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./css/grid.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
+</style>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+<script src="./js/angular-route.min.js"></script>
+
+<script src="./controller/app.js"></script>
+<script src="./controller/sessionService.js"></script>
+<script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
+<script src="./controller/ImageUpload.js"></script>
+</head>
+
+<body class="w3-theme-l5" ng-controller="ImageUploadDetails" ng-cloak>
+	<div>
+		<ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
+			<li class="w3-hide-medium w3-hide-large w3-opennav w3-right"><a
+				class="w3-padding-large w3-hover-white w3-large w3-theme-d2"
+				href="javascript:void(0);" onclick="openNav()"><i
+					class="fa fa-bars"></i></a></li>
+			<li><a href="home.html" class="w3-padding-large w3-hover-white"><i
+					class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
+			<li class="w3-hide-small"><a href="FriendsRequest.html"
+				class="w3-padding-large w3-hover-white"> Friends <i
+					class="fa fa-group"></i></a></li>
+			<li class="w3-hide-small"><a href="ImageUpload.html"
+				class="w3-padding-large w3-theme-d4">Flaunt Now <i
+					class="fa fa-camera-retro"></i></a></li>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				href="TrendsNearby.html" class="w3-padding-large w3-hover-white">Near
+					By Trends <i class="	fa fa-street-view"></i>
+			</a>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				class="w3-padding-large w3-hover-white" ng-click="Logout()">Log
+					Out <i class="fa fa-power-off"></i>
+			</a></li>
+			<li class="w3-hide-small w3-right"><a href="profile-update.html"
+				class=" w3-hover-white" title="My Account"> {{firstname}}
+					{{lastname}} <img ng-src="/user/getProfilePicture/{{user}}"
+					class="w3-circle" style="height: 30px; width: 30px" alt="Avatar">
+			</a></li>
+
+		</ul>
+	</div>
+
+	<!-- Navbar on small screens -->
+	<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top"
+		style="margin-top: 51px">
+		<ul class="w3-navbar w3-left-align w3-large w3-theme">
+			<li><a class="w3-padding-large" href="FriendsRequest.html">Friends
+					<i class="fa fa-group"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="ImageUpload.html">Flaunt
+					Now <i class="fa fa-camera-retro"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="TrendsNearby.html">Near
+					By Trends <i class="fa fa-street-view"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="profile-update.html">Update
+					Profile <i class="fa fa-cog"></i>
+			</a></li>
+			<li><a class="w3-padding-large" ng-click="Logout()">Log Out
+			</a></li>
+		</ul>
+	</div>
+
+	<form name="pic" class="w3-theme-l5" enctype="multipart/form-data">
+		<!-- Page Container -->
+		<div class="w3-container w3-content"
+			style="max-width: 1400px; margin-top: 20px">
+			<!-- The Grid -->
+			<div class="w3-row">
+				<!-- Left Column -->
+				<div class="w3-col m3">
+					<br> <br>
+					<div class="w3-card-2 w3-round w3-white w3-hide-small"></div>
+					<br>
+				</div>
+				<!-- Middle Column -->
+				<div class="w3-col m7">
+					<div class="w3-row-padding">
+						<div class="w3-col m12">
+							<div class="w3-card-2 w3-round w3-white">
+								<div class="w3-container w3-padding">
+									<h6 class="w3-opacity">
+										<font face="Tahoma" color="#292f33">Upload your Flaunt
+											image</font>
+									</h6>
+									<img ng-repeat="image in dummy.images | limitTo: 1"
+										ng-src="{{dummy.images}}" class="img-responsive"
+										alt="Cinque Terre" width="304" height="236"> <input
+										type="file" id="file1" name="file"
+										ng-files="getTheFiles($files)" ng-model="dummy.images"
+										accept="image/*" app-filereader /> <br> <font
+										face="Tahoma" color="#66757f"> <strong>Tag
+											Brand Here:</strong></font> <br> <font face="Tahoma" color="#66757f"><strong>Accessory:
+									</strong></font> <Select ng-model="Accessory" id="Accessory">
+										<option>Shirt</option>
+										<option>Trouser</option>
+										<option>Shoe</option>
+									</Select> <font face="Tahoma" color="#66757f"><strong>
+											Brand: </strong></font> <Select ng-model="BrandName1" id="Brand">
+										<option>Levis</option>
+										<option>Wrangler</option>
+										<option>PepeJeans</option>
+									</Select> <br> <br>
+									<button type="button" class="w3-btn w3-theme"
+										ng-click="uploadFiles()">
+										<i class="fa fa-upload"></i> &nbsp;Upload
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br /> <br /> <img src=images/Loading_icon.gif ng-show="loading" />
+				</div>
+			</div>
+
+			<div class='md-padding' layout="row" layout-wrap>
+
+				<md-card style="width: 304px; background-color:#fff;"
+					ng-repeat="x in img1" ng-cloak> <img
+					ng-src="data:image/JPEG;base64,{{x.body}}" class="img-responsive"
+					width="304" height="236">
+
+				<h2 style="font-size: 150%; text-align: center;">{{followedUser.firstName}}
+					{{followedUser.lastName}}</h2>
+
+				<div style="width: 20%; margin: 0 auto; text-align: center">
+					<p ng-show="x.headers.Brand.join() == 'Levis'"">
+						<img src="/images/Levis.png" style="width: 50px; height: 25px">
+						<b>{{x.headers.Accessory.join()}}</b>
+					</p>
+					<p ng-show="x.headers.Brand.join() == 'Wrangler'"">
+						<img src="/images/wrangler	.png" style="width: 50px; height: 25px">
+						<b>{{x.headers.Accessory.join()}}</b>
+					</p>
+					<p ng-show="x.headers.Brand.join() == 'PepeJeans'"">
+						<img src="/images/PepeJeans.png" style="width: 50px; height: 25px">
+						<b>{{x.headers.Accessory.join()}}</b>
+					</p>
+				</div>
+
+				</md-card>
+			</div>
+	</form>
+</body>
+			<script>
+// Accordion
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-theme-d1";
+    } else {
+        x.className = x.className.replace("w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace(" w3-theme-d1", "");
+    }
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</html>
